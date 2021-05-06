@@ -1,0 +1,30 @@
+﻿@model List<blogMVC.Models.anasayfa>
+   
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@foreach (var yazi in Model)
+{
+
+<section class="page-section clearfix">
+    <div class="container">
+        <div class="intro">
+            <img class="intro-img img-fluid mb-3 mb-lg-0 rounded" src="~/Content/img/@yazi.resim" alt="">
+            <div class="intro-text left-0 text-center bg-faded p-5 rounded">
+                <h2 class="section-heading mb-4">
+                    <span class="section-heading-upper">@yazi.baslik</span>
+                    <span class="section-heading-lower">@yazi.altBaslik</span>
+                </h2>
+                @Html.Raw(yazi.yazi)
+            <div class="intro-button mx-auto">
+                @*<a class="btn btn-primary btn-xl" href="#">Visit Us Today!</a>*@
+            </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+}
+

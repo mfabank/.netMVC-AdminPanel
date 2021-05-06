@@ -1,0 +1,97 @@
+﻿@model blogMVC.Models.yazilar
+
+@{
+    ViewBag.Title = "Yazılar";
+    Layout = "~/Areas/admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    .field-validation-error {
+        color:red;
+    }
+</style>
+
+<div class="content-wrapper">
+    <div class="container">
+        <h2>Yazı Form Sayfası</h2>
+        @using (Html.BeginForm("Kaydet", "Blog", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+        {
+            <table class="table table-hover">
+                <tr>
+                    <td>Resim</td>
+                    <td>
+                        @if (Model.resim != null)
+                        {
+                            <img src="~/Content/img/@Model.resim" width="250" />
+                        }
+                        @Html.TextBoxFor(m => m.resimDosyasi, new { type = "file" })
+                        @if (ViewBag.HataResim != null)
+                        {
+                    <span class="field-validation-error" data-valmsg-for="resimDosyasi" data-valmsg-replace="true">@ViewBag.HataMesaj</span>
+
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td>Başlık</td>
+                    <td>
+                        @Html.TextBoxFor(m => m.baslik, new { @class = "form-controller" })
+                        @Html.ValidationMessageFor(m => m.baslik)
+                    </td>
+                </tr>
+                <tr>
+                    <td>Alt Başlık</td>
+                    <td>
+                        @Html.TextBoxFor(m => m.altBaslik, new { @class = "form-controller" })
+                        @Html.ValidationMessageFor(m => m.altBaslik)
+                    </td>
+                </tr>
+                <tr>
+                    <td>Yazı</td>
+                    <td>
+                        @Html.TextAreaFor(m => m.yazi, new { @class = "form-controller" })
+                        @Html.ValidationMessageFor(m => m.yazi)
+                    </td>
+                </tr>
+                <tr>
+                    <td>Sıra</td>
+                    <td>
+                        @Html.TextBoxFor(m => m.sira, new { @class = "form-controller" })
+                        @Html.ValidationMessageFor(m => m.sira)
+                    </td>
+                </tr>
+                <tr>
+                    <td>Görünürlük</td>
+                    <td>
+                        <label> @Html.CheckBoxFor(m => m.gorunurluk) Görünür mü ? </label>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    </td>
+                    <td>
+                        @Html.HiddenFor(m => m.resim)
+                        @Html.HiddenFor(m => m.id)
+                        <input type="submit" value="Kaydet" class="btn btn-success" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>
+
+@section altTaraf {
+
+    <!-- Summernote -->
+    <script src="~/Content/admin/plugins/summernote/summernote-bs4.min.js"></script>
+    <!-- summernote -->
+    <link rel="stylesheet" href="~/Content/admin/plugins/summernote/summernote-bs4.css">
+    <script>
+        $(function () {
+            // Summernote
+            $('#yazi').summernote()
+        })
+    </script>
+
+}   

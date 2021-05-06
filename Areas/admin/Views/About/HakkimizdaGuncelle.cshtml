@@ -1,0 +1,68 @@
+﻿@model blogMVC.Models.hakkimizda
+
+@{
+    ViewBag.Title = "Hakkımızda";
+    Layout = "~/Areas/admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="content-wrapper">
+    <div class="container">
+        <h2>Hakkımızda Sayfası Güncelleme Alanı</h2>
+        @using (Html.BeginForm("Kaydet", "About", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+        {
+
+            <table class="table table-hover">
+                <tr>
+                    <td>Resim</td>
+                    <td>
+                        <img src="~/Content/img/@Model.resim" width="250" />
+                        @Html.TextBoxFor(m => m.resimDosyasi, new { type = "file" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>Başlık</td>
+                    <td>
+                        @Html.TextBoxFor(m => m.tanitimBaslik, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.tanitimBaslik)
+                    </td>
+                </tr>
+                <tr>
+                    <td>Alt Başlık</td>
+                    <td>
+                        @Html.TextBoxFor(m => m.tanitimAltBaslik, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.tanitimAltBaslik)
+                    </td>
+                </tr>
+                <tr>
+                    <td>Yazı</td>
+                    <td>
+                        @Html.TextAreaFor(m => m.tanitimYazisi, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.tanitimYazisi)
+                    </td>
+                </tr>
+                <tr>
+                    <td>Güncelle</td>
+                    <td>
+                        @Html.HiddenFor(m => m.resim)
+                        @Html.HiddenFor(m => m.id)
+                        <input type="submit" value="Güncelle" class="btn btn-success" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>
+
+@section altTaraf {
+
+    <!-- Summernote -->
+    <script src="~/Content/admin/plugins/summernote/summernote-bs4.min.js"></script>
+    <!-- summernote -->
+    <link rel="stylesheet" href="~/Content/admin/plugins/summernote/summernote-bs4.css">
+    <script>
+        $(function () {
+            // Summernote
+            $('#tanitimYazisi').summernote()
+        })
+    </script>
+
+}   
